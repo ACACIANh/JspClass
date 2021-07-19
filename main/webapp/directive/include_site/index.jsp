@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>JSP</title>
+<%-- 
 <style type="text/css">
 div {
 	margin: 5px;
@@ -47,9 +48,12 @@ div {
 	font-size: 1.2em;
 }
 </style>
+--%>
+<link href="style.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 	<%-- header 영역 : 로고, 메뉴 등 --%>
+	<%-- 
 	<div id="header">
 		<h1><a href="index.jsp">쇼핑몰</a></h1>
 		<div id="menu">
@@ -59,6 +63,8 @@ div {
 			<a href="review.jsp">사용후기</a>&nbsp;&nbsp;
 		</div>
 	</div>
+	--%>
+	<%@include file="header.jspf" %>
 	
 	<%-- content 영역 : 요청에 대한 응답 결과를 제공 --%>
 	<div id="content">
@@ -66,9 +72,12 @@ div {
 	</div>
 	
 	<%-- footer 영역 : 저작권, 약관, 개인정보 보호정책 등 --%>
+	<%-- 
 	<div id="footer">
 		<p>Copyright © itwill Corp. All rights reserved.</p>
 	</div>
+	--%>
+	<%@include file="footer.jspf" %>
 </body>
 </html>
 

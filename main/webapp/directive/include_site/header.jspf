@@ -1,0 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+	<div id="header">
+		<h1><a href="index.jsp">쇼핑몰</a></h1>
+		<div id="menu">
+			<a href="product.jsp">제품소개</a>&nbsp;&nbsp;
+			<a href="cart.jsp">장바구니</a>&nbsp;&nbsp;
+			<a href="order.jsp">주문내역</a>&nbsp;&nbsp;
+			<a href="review.jsp">사용후기</a>&nbsp;&nbsp;
+		</div>
+	</div>

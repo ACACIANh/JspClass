@@ -9,7 +9,7 @@
 <body>
 	<h1>지시어(Directive)</h1>
 	<hr>
-	<p>1.page Directive : JSP 문서(웹프로그램에 필요한 정보를 제공하도록 지시
+	<p>1.page Directive : JSP 문서(웹프로그램)에 필요한 정보를 제공하도록 지시
 	- &lt;%@page contentType="mimeType" pageEncoding="encoding" ... %&gt;</p>
 	<p>2.include Directive : JSP 문서에 외부 파일의 코드를 포함하도록 지시
 	- &lt;%@include file="URL"%&gt;</p>
