@@ -16,7 +16,7 @@
 	String id=request.getParameter("id");
 	String passwd=request.getParameter("passwd");
 	
-	//아이디와 비밀번호 비교 
+	//아이디와 비밀번호 비교 - 인증 처리
 	//인증 실패 : 세션에 아이디와 메세지를 속성값으로 저장하고 입력페이지(login_form.jsp)로 이동  
 	if(!id.equals("abc123") || !passwd.equals("123456")) {
 		session.setAttribute("message", "가입되지 않은 아이디이거나, 잘못된 비밀번호입니다.");

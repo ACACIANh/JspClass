@@ -78,7 +78,7 @@
 	<%-- param 태그 : 스레드가 이동되는 JSP 문서에 값을 전달하는 태그 --%>
 	<%-- => 리퀘스트 메세지 바디에 값을 저장하여 전달 - POST 방식과 유사 --%>
 	<jsp:include page="footer.jsp">
-		<jsp:param value="<%=master %>" name="master2"/>
+		<jsp:param value="<%=master %>" name="master"/>
 	</jsp:include>
 </body>
 </html>
