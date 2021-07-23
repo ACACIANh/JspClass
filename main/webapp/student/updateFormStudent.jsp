@@ -31,7 +31,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>학생정보 변경폼</title>   
+<title>JSP</title>   
 </head>
 <body>
 	<h1 align="center">학생정보 변경</h1>
