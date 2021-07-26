@@ -1,5 +1,28 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%-- 로그인 인증정보를 입력받기 위한 JSP 문서 --%>
+<%-- => [로그인]을 클릭한 경우 로그인 처리페이지(member_login_action.jsp)로 이동 - 입력값 전달 --%>
+<%
+	if(request.getParameter("state")!=null) {
+		if(request.getParameter("state").equals("1")) {
+			session.removeAttribute("url");
+		}
+	}
+
+	String message=(String)session.getAttribute("message");
+	if(message==null) {
+		message="";
+	} else {
+		session.removeAttribute("message");
+	}
+	
+	String id=(String)session.getAttribute("id");
+	if(id==null) {
+		id="";
+	} else {
+		session.removeAttribute("id");
+	}
+%>    
 <style type="text/css">
 #space {
 	height: 50px;
@@ -50,11 +73,12 @@ a:hover {
 }
 </style>
 <div id="space"></div>
-<form id="login" name="loginForm" action="#" method="post">
+<form id="login" name="loginForm" method="post"
+	action="<%=request.getContextPath() %>/site/index.jsp?workgroup=member&work=member_login_action" >
 	<ul class="login_tag">
 		<li>
 			<label for="id">아이디</label>
-			<input type="text" name="id" id="id">
+			<input type="text" name="id" id="id" value="<%=id%>">
 		</li>
 		<li>
 			<label for="id">비밀번호</label>
@@ -66,8 +90,9 @@ a:hover {
 		<a href="#">아이디 찾기</a> |
 		<a href="#">비밀번호 찾기</a> 
 	</div>
-	<div id="message"></div>
+	<div id="message"><%=message %></div>
 </form>
+
 <script type="text/javascript">
 $("#id").focus();
 
