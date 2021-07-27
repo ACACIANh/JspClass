@@ -54,7 +54,6 @@
 	background-color: aqua;
 	font-size: 1.2em;
 	cursor: pointer;
-	letter-spacing: 20px;
 	font-weight: bold; 	 
 }
 
@@ -85,7 +84,7 @@ a:hover {
 			<input type="password" name="passwd" id="passwd">
 		</li>
 	</ul>
-	<div id="login_btn">로그인</div>
+	<div id="login_btn">로 그 인</div>
 	<div id="search">
 		<a href="#">아이디 찾기</a> |
 		<a href="#">비밀번호 찾기</a> 

@@ -3,8 +3,7 @@
 <%@page import="xyz.itwill.dto.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- 입력페이지(member_join.jsp)에서 회원정보를 전달받아 MEMBER 테이블에 저장하고 로그인
-입력페이지(member_login.jsp)로 이동하는 JSP 문서 --%>
+<%-- 회원정보를 전달받아 MEMBER 테이블에 저장하고 로그인 입력페이지(member_login.jsp)로 이동하는 JSP 문서 --%>
 <%
 	//비정상적인 요청에 대한 처리
 	if(request.getMethod().equals("GET")) {

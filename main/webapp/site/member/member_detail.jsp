@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- 현재 로그인 사용자의 회원정보를 클라이언트에게 전달하는 JSP 문서 --%>
-<%-- => 비로그인 사용자가 JSP 문서를 요청한 경우 에러페이지 이동 - 비정상적 요청 --%>
+<%-- => 비로그인 사용자가 JSP 문서를 요청한 경우 비정상적 요청으로 에러페이지 이동 --%>
 <%--
 	//세션에 저장된 권한 관련 정보를 반환받아 저장
 	MemberDTO loginMember=(MemberDTO)session.getAttribute("loginMember");
@@ -47,16 +47,6 @@
 </div>
 
 <div id="mypage">
-	<a href="">[회원정보변경]</a>&nbsp;&nbsp;
-	<a href="">[회원탈퇴]</a>&nbsp;&nbsp;
+	<a href="<%=request.getContextPath()%>/site/index.jsp?workgroup=member&work=password_confirm&action=modify">[회원정보변경]</a>&nbsp;&nbsp;
+	<a href="<%=request.getContextPath()%>/site/index.jsp?workgroup=member&work=password_confirm&action=remove">[회원탈퇴]</a>&nbsp;&nbsp;
 </div>
-
-
-
-
-
-
-
-
-
-
