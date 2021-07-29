@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%-- 현재 로그인 사용자의 회원정보를 클라이언트에게 전달하는 JSP 문서 --%>
 <%-- => 비로그인 사용자가 JSP 문서를 요청한 경우 비정상적 요청으로 에러페이지 이동 --%>
+<%-- => [회원정보변경]을 클릭한 경우 비밀번호 입력페이지(password_confirm.jsp)로 이동 - 액션페이지 정보 전달 --%>
+<%-- => [회원탈락]을 클릭한 경우 비밀번호 입력페이지(password_confirm.jsp)로 이동 - 액션페이지 정보 전달 --%>
 <%--
 	//세션에 저장된 권한 관련 정보를 반환받아 저장
 	MemberDTO loginMember=(MemberDTO)session.getAttribute("loginMember");

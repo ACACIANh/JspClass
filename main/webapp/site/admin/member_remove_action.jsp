@@ -15,7 +15,7 @@
 	}
 
 	//체크박스에 의해 선택되어 전달된 값들을 반환받아 저장 
-	// => 같은 이름으로 전달된 값이 여러 개 존재하므로 getParameterValues() 메소드 호출  
+	// => 하나의 이름으로 여러 개의 값이 전달되므로 getParameterValues() 메소드 호출  
 	String[] checkId=request.getParameterValues("checkId");
 	
 	//배열에 저장된 요소값(아이디)를 반복적으로 제공받아 삭제 처리
