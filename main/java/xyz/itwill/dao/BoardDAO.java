@@ -25,7 +25,9 @@ public class BoardDAO extends JdbcDAO {
 	}
 	
 	//BOARD 테이블에 저장된 전체 게시글에 갯수를 검색하여 반환하는 메소드
-	public int selectBoardCount() {
+	// => 검색 기능을 제공하기 위해 매개변수에 검색 관련 값을 전달받아 저장
+	//public int selectBoardCount() {
+	public int selectBoardCount(String search, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -33,8 +35,16 @@ public class BoardDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="select count(*) from board";
-			pstmt=con.prepareStatement(sql);
+			//메소드의 매개변수에 저장된 값에 따라 다른 SQL 명령을 전달하여 실행되도록 설정
+			// => 동적 SQL(Dynamic SQL)
+			if(keyword.equals("")) {//검색 기능을 사용하지 않은 경우
+				String sql="select count(*) from board";
+				pstmt=con.prepareStatement(sql);
+			} else {//검색 기능을 사용한 경우
+				String sql="select count(*) from board where "+search+" like '%'||?||'%' and status!=9";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+			}
 			
 			rs=pstmt.executeQuery();
 			
@@ -48,10 +58,11 @@ public class BoardDAO extends JdbcDAO {
 		}
 		return count;
 	}
-	
+		
 	//게시글 시작 행번호와 게시글 종료 행번호를 전달받아 BOARD 테이블에 저장된 게시글에서
 	//시작행부터 종료행의 범위의 게시글 목록을 검색하여 반환하는 메소드
-	public List<BoardDTO> selectBoardList(int startRow, int endRow) {
+	//public List<BoardDTO> selectBoardList(int startRow, int endRow) {
+	public List<BoardDTO> selectBoardList(int startRow, int endRow, String search, String keyword) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -59,12 +70,22 @@ public class BoardDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="select * from (select rownum rn,temp.* from "
-					+ "(select * from board order by ref desc,re_step) temp) "
-					+ "where rn between ? and ?";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			if(keyword.equals("")) {
+				String sql="select * from (select rownum rn,temp.* from "
+						+ "(select * from board order by ref desc,re_step) temp) "
+						+ "where rn between ? and ?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+			} else {
+				String sql="select * from (select rownum rn,temp.* from "
+						+ "(select * from board where "+search+" like '%'||?||'%' and status!=9 "
+						+ "order by ref desc,re_step) temp) where rn between ? and ?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+			}
 			
 			rs=pstmt.executeQuery();
 			
@@ -135,6 +156,36 @@ public class BoardDAO extends JdbcDAO {
 			rows=pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("[에러]updateReStep() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+	
+	//게시글을 전달받아 BOARD 테이블에 삽입하여 저장하고 삽입행의 갯수를 반환하는 메소드
+	public int insertBoard(BoardDTO board) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			String sql="insert into board values(?,?,?,?,sysdate,0,?,?,?,?,?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, board.getNum());
+			pstmt.setString(2, board.getId());
+			pstmt.setString(3, board.getWriter());
+			pstmt.setString(4, board.getSubject());
+			pstmt.setInt(5, board.getRef());
+			pstmt.setInt(6, board.getReStep());
+			pstmt.setInt(7, board.getReLevel());
+			pstmt.setString(8, board.getContent());
+			pstmt.setString(9, board.getIp());
+			pstmt.setInt(10, board.getStatus());
+			
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]insertBoard() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
 			close(con, pstmt);
 		}
