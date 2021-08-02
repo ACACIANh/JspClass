@@ -1,0 +1,6 @@
+create table product(product_num number(4) primary key
+	,product_code varchar2(20),product_name varchar2(50)
+	,main_image varchar2(30),product_detail varchar2(300)
+	,product_qty number(8),product_price number(8));
+
+create sequence product_seq;

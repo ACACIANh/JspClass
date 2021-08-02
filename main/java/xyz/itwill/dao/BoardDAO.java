@@ -191,6 +191,110 @@ public class BoardDAO extends JdbcDAO {
 		}
 		return rows;
 	}
+	
+	//글번호를 전달받아 BOARD 테이블에 저장된 해당 글번호의 게시글을 검색하여 반환하는 메소드
+	public BoardDTO selectNumBoard(int num) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		BoardDTO board=null;
+		try {
+			con=getConnection();
+			
+			String sql="select * from board where num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				board=new BoardDTO();
+				board.setNum(rs.getInt("num"));
+				board.setId(rs.getString("id"));
+				board.setWriter(rs.getString("writer"));
+				board.setSubject(rs.getString("subject"));
+				board.setRegDate(rs.getString("reg_date"));
+				board.setReadcount(rs.getInt("readcount"));
+				board.setRef(rs.getInt("ref"));
+				board.setReStep(rs.getInt("re_step"));
+				board.setReLevel(rs.getInt("re_level"));
+				board.setContent(rs.getString("content"));
+				board.setIp(rs.getString("ip"));
+				board.setStatus(rs.getInt("status"));
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectNumBoard() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return board;
+	}
+	
+	//글번호를 전달받아 BOARD 테이블에 저장된 해당 글번호의 게시글 조회수를 변경하고 변경행의 갯수를 반환하는 메소드
+	public int updateReadCount(int num) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			String sql="update board set readcount=readcount+1 where num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]updateReadCount() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+	
+	//글번호를 전달받아 BOARD 테이블에 저장된 해당 글번호의 게시글을 삭제 처리하고 처리행의 갯수를 반환하는 메소드
+	public int deleteBoard(int num) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			String sql="update board set status=9 where num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]deleteBoard() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+	
+	//게시글을 전달받아 BOARD 테이블에 저장된 게시글을 변경하고 변경행의 갯수를 반환하는 메소드
+	public int updateBoard(BoardDTO board) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			String sql="update board set subject=?,content=?,status=? where num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1,board.getSubject());
+			pstmt.setString(2,board.getContent());
+			pstmt.setInt(3, board.getStatus());
+			pstmt.setInt(4, board.getNum());
+			
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]updateBoard() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
 }
 
 

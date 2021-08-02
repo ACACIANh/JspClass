@@ -7,7 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- BOARD 테이블에 저장된 게시글을 검색하여 게시글 목록을 클라이언트에게 전달하는 JSP 문서 --%>
-<%-- => 게시글 목록을 페이지로 구분하여 출력 - 페이징 처리(SQL 명령)  --%>
+<%-- => 게시글 목록을 페이지로 구분하여 출력 - 페이징 처리(SQL 명령) --%>
 <%-- => 페이지 번호를 블럭으로 구분하여 출력 - 페이징 처리(알고리즘) --%>
 <%-- => 로그인 사용자가 [글쓰기]를 클릭한 경우 게시글 입력페이지(board_write.jsp)로 이동 --%>
 <%-- => 게시글의 [제목]을 클릭한 경우 게시글 상세 출력페이지(board_detail.jsp)로 이동 - 글번호와 페이지 번호, 검색 관련 정보 전달 --%>
@@ -238,7 +238,7 @@ td {
 		}
 	%>
 	
-	<% if(startPage>blockSize) { %>
+	<% if(startPage>blockSize) {//2번째 블럭 이상인 경우 - 링크 설정 %>
 		<a href="<%=request.getContextPath()%>/site/index.jsp?workgroup=board&work=board_list&pageNum=1&search=<%=search%>&keyword=<%=keyword%>">[처음]</a>
 		<a href="<%=request.getContextPath()%>/site/index.jsp?workgroup=board&work=board_list&pageNum=<%=startPage-blockSize%>&search=<%=search%>&keyword=<%=keyword%>">[이전]</a>
 	<% } else { %>
@@ -253,7 +253,7 @@ td {
 		<% } %>
 	<% } %>
 	
-	<% if(endPage!=totalPage) { %>
+	<% if(endPage!=totalPage) {//마지막 페이지 블럭이 아닌 경우 - 링크 설정 %>
 		<a href="<%=request.getContextPath()%>/site/index.jsp?workgroup=board&work=board_list&pageNum=<%=startPage+blockSize%>&search=<%=search%>&keyword=<%=keyword%>">[다음]</a>
 		<a href="<%=request.getContextPath()%>/site/index.jsp?workgroup=board&work=board_list&pageNum=<%=totalPage%>&search=<%=search%>&keyword=<%=keyword%>">[마지막]</a>
 	<% } else { %>
