@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="xyz.itwill.dao.ProductDAO"%>
 <%@page import="xyz.itwill.dto.ProductDTO"%>
 <%@page import="java.util.List"%>
@@ -7,6 +8,7 @@
 <%-- => 로그인 상태의 관리자만 접근 가능하도록 설정 --%>
 <%-- => [카테고리]를 변경한 경우 제품목록 출력페이지(product_manager.jsp)로 이동 - 카테고리 전달 --%>
 <%-- => [제품등록]을 클릭한 경우 제품정보 입력페이지(product_add.jsp)로 이동 --%>
+<%-- => [제품명]을 클릭한 경우 제품정보 출력페이지(product_detail.jsp)로 이동 - 제품번호 전달 --%>
 <%@include file="/site/security/admin_check.jspf" %>
 <%
 	String category=request.getParameter("category");
@@ -20,7 +22,7 @@
 %>
 <style type="text/css">
 #product {
-	width: 800px;
+	width: 1000px;
 	margin: 10px auto;
 }
 
@@ -74,10 +76,12 @@ td a:hover {
 		<% } else { %>
 			<% for(ProductDTO product:productList) { %>
 			<tr>
-				<td><%=product.getProductCode() %>
-				<td><%=product.getProductName() %>
-				<td><%=product.getProductQty() %>
-				<td><%=product.getProductPrice() %>
+				<td><%=product.getProductCode() %></td>
+				<td>
+					<a href="<%=request.getContextPath()%>/site/index.jsp?workgroup=admin&work=product_detail&productNum=<%=product.getProductNum()%>"><%=product.getProductName() %></a>
+				</td>
+				<td><%=DecimalFormat.getInstance().format(product.getProductQty()) %></td>
+				<td><%=DecimalFormat.getCurrencyInstance().format(product.getProductPrice()) %></td>
 			</tr>
 			<% } %>
 		<% } %>
